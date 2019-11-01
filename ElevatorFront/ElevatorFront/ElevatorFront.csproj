@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{3DA861BF-06DE-426C-88A4-164B0E4D6FF5}</ProjectGuid>
+    <ProjectGuid>{1B49CAAE-4645-4658-8C74-62359EBEA0B2}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>WindowsFormsApp1</RootNamespace>
-    <AssemblyName>WindowsFormsApp1</AssemblyName>
+    <RootNamespace>ElevatorFront</RootNamespace>
+    <AssemblyName>ElevatorFront</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -46,6 +46,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FloorCell.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FloorCell.Designer.cs">
+      <DependentUpon>FloorCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FloorIndicator.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FloorIndicator.Designer.cs">
+      <DependentUpon>FloorIndicator.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -54,6 +66,30 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StatisticPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="StatisticPanel.Designer.cs">
+      <DependentUpon>StatisticPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StatPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="StatPanel.Designer.cs">
+      <DependentUpon>StatPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserStatMessage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserStatMessage.Designer.cs">
+      <DependentUpon>UserStatMessage.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="FloorCell.resx">
+      <DependentUpon>FloorCell.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FloorIndicator.resx">
+      <DependentUpon>FloorIndicator.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -66,6 +102,15 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="StatisticPanel.resx">
+      <DependentUpon>StatisticPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StatPanel.resx">
+      <DependentUpon>StatPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserStatMessage.resx">
+      <DependentUpon>UserStatMessage.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

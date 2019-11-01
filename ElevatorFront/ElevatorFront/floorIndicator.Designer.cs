@@ -1,13 +1,13 @@
-﻿namespace WindowsFormsApp1
+﻿namespace ElevatorFront
 {
-    partial class dzm
+    partial class FloorIndicator
     {
-        /// <summary>
+        /// <summary> 
         /// Обязательная переменная конструктора.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
+        /// <summary> 
         /// Освободить все используемые ресурсы.
         /// </summary>
         /// <param name="disposing">истинно, если управляемый ресурс должен быть удален; иначе ложно.</param>
@@ -20,40 +20,40 @@
             base.Dispose(disposing);
         }
 
-        #region Код, автоматически созданный конструктором форм Windows
+        #region Код, автоматически созданный конструктором компонентов
 
-        /// <summary>
+        /// <summary> 
         /// Требуемый метод для поддержки конструктора — не изменяйте 
         /// содержимое этого метода с помощью редактора кода.
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.floorIndicatorCheckbox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
-            // imageList1
+            // floorIndicatorCheckbox
             // 
-            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
-            this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.floorIndicatorCheckbox.AutoSize = true;
+            this.floorIndicatorCheckbox.Location = new System.Drawing.Point(0, 0);
+            this.floorIndicatorCheckbox.Name = "floorIndicatorCheckbox";
+            this.floorIndicatorCheckbox.Size = new System.Drawing.Size(18, 17);
+            this.floorIndicatorCheckbox.TabIndex = 0;
+            this.floorIndicatorCheckbox.UseVisualStyleBackColor = true;
             // 
-            // dzm
+            // FloorIndicator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1360, 526);
-            this.Cursor = System.Windows.Forms.Cursors.Default;
-            this.Name = "dzm";
-            this.Text = "My Elevator";
-            this.Load += new System.EventHandler(this.DzmChy_Load);
+            this.Controls.Add(this.floorIndicatorCheckbox);
+            this.Name = "FloorIndicator";
+            this.Size = new System.Drawing.Size(44, 42);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.ImageList imageList1;
+        private System.Windows.Forms.CheckBox floorIndicatorCheckbox;
     }
 }
-
