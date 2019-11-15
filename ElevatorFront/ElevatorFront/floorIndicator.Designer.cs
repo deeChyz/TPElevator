@@ -34,7 +34,7 @@
             // floorIndicatorCheckbox
             // 
             this.floorIndicatorCheckbox.AutoSize = true;
-            this.floorIndicatorCheckbox.Location = new System.Drawing.Point(0, 0);
+            this.floorIndicatorCheckbox.Location = new System.Drawing.Point(12, 12);
             this.floorIndicatorCheckbox.Name = "floorIndicatorCheckbox";
             this.floorIndicatorCheckbox.Size = new System.Drawing.Size(18, 17);
             this.floorIndicatorCheckbox.TabIndex = 0;
@@ -47,6 +47,7 @@
             this.Controls.Add(this.floorIndicatorCheckbox);
             this.Name = "FloorIndicator";
             this.Size = new System.Drawing.Size(44, 42);
+            this.Load += new System.EventHandler(this.FloorIndicator_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

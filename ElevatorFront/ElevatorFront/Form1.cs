@@ -23,6 +23,8 @@ namespace ElevatorFront
 
             peopleOnlineStats.Controls.Add(new UserStatMessage("Человек ждет лифта на 1 этаже"));
             peopleOnlineStats.Controls.Add(new UserStatMessage("Человек едет на 3 этаж"));
+            peopleOnlineStats.Controls.Add(new UserStatMessage("Человек едет на 3 этаж"));
+            peopleOnlineStats.Controls.Add(new UserStatMessage("Человек едет на 3 этаж"));
             peopleOnlineStats.Controls.Add(new UserStatMessage("Человек ждет лифта на 2 этаже"));
             peopleOnlineStats.Controls.Add(new UserStatMessage("Человек доставлен на целевой этаж 2 "));
 
