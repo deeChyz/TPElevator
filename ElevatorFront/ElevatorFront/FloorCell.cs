@@ -12,6 +12,7 @@ namespace ElevatorFront
 {
     public partial class FloorCell : UserControl
     {
+        public event Action OpenAddNewPassengerView;
         public FloorCell()
         {
             InitializeComponent();
@@ -29,7 +30,7 @@ namespace ElevatorFront
 
         private void addUserButton_Click(object sender, EventArgs e)
         {
-
+            OpenAddNewPassengerView.Invoke();
         }
     }
 }

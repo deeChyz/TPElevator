@@ -1,6 +1,6 @@
 ﻿namespace ElevatorFront
 {
-    partial class Form1
+    partial class BuildingView
     {
         /// <summary>
         /// Обязательная переменная конструктора.

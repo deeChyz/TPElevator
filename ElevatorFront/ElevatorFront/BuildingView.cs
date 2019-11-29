@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Model.Interfaces;
+using Presentation.Interfaces.Views;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,15 +12,25 @@ using System.Windows.Forms;
 
 namespace ElevatorFront
 {
-    public partial class Form1 : Form
+    public partial class BuildingView : Form, IBuildingView
     {
-        public Form1()
+        public event Action<int> AddNewPassenger;
+
+        private void InvokeAddNewPassengerEvent(int currentFloor)
+        {
+            AddNewPassenger.Invoke(currentFloor);
+        }
+
+        public BuildingView(IElevatorService elevatorService)
         {
             InitializeComponent();
-            for (int i = 0; i < 12; i++)
-            { 
-                floorMainPanel.Controls.Add(new FloorCell());
+            for (int i = 0; i < elevatorService.NumberOfFloors; i++)
+            {
+                var floorCell = new FloorCell();
+                floorMainPanel.Controls.Add(floorCell);
                 floorButtonIndicatorsBox.Controls.Add(new FloorIndicator());
+                var j = i;
+                floorCell.OpenAddNewPassengerView += () => InvokeAddNewPassengerEvent(j+1);
             }
 
             peopleOnlineStats.Controls.Add(new UserStatMessage("Человек ждет лифта на 1 этаже"));

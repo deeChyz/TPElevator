@@ -1,8 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using Model;
+using Model.Interfaces;
+using Ninject;
+using Presentation;
+using Presentation.Interfaces.Views;
 
 namespace ElevatorFront
 {
@@ -14,9 +16,25 @@ namespace ElevatorFront
         [STAThread]
         static void Main()
         {
+            StandardKernel kernel = new StandardKernel();
+            kernel.Bind<ApplicationContext>().ToConstant(new ApplicationContext());
+            kernel.Bind<ISetUpView>().To<SetUpView>();
+            kernel.Bind<IBuildingView>().To<BuildingView>();
+            kernel.Bind<IAddNewPassengerView>().To<AddNewPassengerView>();
+            kernel.Bind<SetUpPresenter>().ToSelf();
+            kernel.Bind<BuildingPresenter>().ToSelf();
+            kernel.Bind<AddNewPassengerPresenter>().ToSelf();
+            kernel.Bind<IElevatorService>().To<ElevatorService>().InSingletonScope();
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+
+            kernel.Get<SetUpPresenter>().Run();
+            Application.Run(kernel.Get<ApplicationContext>());
+
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new BuildingView(kernel.Get<IElevatorService>()));
         }
     }
 }
