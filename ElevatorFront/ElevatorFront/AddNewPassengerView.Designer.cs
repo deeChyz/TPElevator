@@ -99,6 +99,7 @@
             this.Controls.Add(this.tbName);
             this.Name = "AddNewPassengerView";
             this.Text = "AddNewPassengerView";
+            this.Load += new System.EventHandler(this.AddNewPassengerView_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

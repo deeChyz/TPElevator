@@ -23,5 +23,10 @@ namespace ElevatorFront
             lblError.Text = string.Empty;
             AddNewPassenger?.Invoke(tbName.Text, tbFloor.Text);
         }
+
+        private void AddNewPassengerView_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

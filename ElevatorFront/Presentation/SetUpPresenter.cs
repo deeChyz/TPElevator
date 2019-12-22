@@ -31,6 +31,7 @@ namespace Presentation
             try
             {
                 _elevatorService.NumberOfFloors = n;
+                _elevatorService.InitializeFloors(n);
             }
             catch (Exception e)
             {

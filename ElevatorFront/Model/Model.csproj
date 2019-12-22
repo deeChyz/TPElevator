@@ -33,6 +33,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -41,9 +42,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Elevator.cs" />
+    <Compile Include="ElevatorControlPanel.cs" />
     <Compile Include="ElevatorService.cs" />
+    <Compile Include="Floor.cs" />
+    <Compile Include="Interfaces\IElevator.cs" />
+    <Compile Include="Interfaces\IElevatorControlPanel.cs" />
     <Compile Include="Interfaces\IElevatorService.cs" />
+    <Compile Include="Interfaces\IFloor.cs" />
+    <Compile Include="Interfaces\IPassenger.cs" />
+    <Compile Include="Interfaces\IStatisticMaker.cs" />
+    <Compile Include="Passenger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StatisticMaker.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

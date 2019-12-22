@@ -15,6 +15,9 @@ namespace ElevatorFront
     public partial class BuildingView : Form, IBuildingView
     {
         public event Action<int> AddNewPassenger;
+        public event Action StartSimulation;
+        public event Action StopSimulation;
+        public event Action ShowPassengersInfo;
 
         private void InvokeAddNewPassengerEvent(int currentFloor)
         {
@@ -76,6 +79,66 @@ namespace ElevatorFront
         private void peopleCounterLabel_Click(object sender, EventArgs e)
         {
 
+        }
+
+        public void PressFloorButtonCheckbox(int FloorNumber)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void PressElevatorButtonCheckbox(int FloorNumber)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void MoveElevator(int Destination)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void IncreaseNumberOfRides()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void IncreaseNumberOfFreeRides()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ShowOverweightWarning()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void HideOverweightWarning()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void TransferPassengerToElevator(int FloorNumber)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void TransferPassengerFromElevator(int FloorNumber)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DispellPassenger(int FloorNumber)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateTimeStatistics(double Time)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateTotalWeightStatistics(int WeightToAdd)
+        {
+            throw new NotImplementedException();
         }
     }
 }
