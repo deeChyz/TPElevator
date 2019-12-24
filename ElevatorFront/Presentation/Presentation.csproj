@@ -46,7 +46,11 @@
   <ItemGroup>
     <Compile Include="AddNewPassengerPresenter.cs" />
     <Compile Include="BuildingPresenter.cs" />
+    <Compile Include="FloorCellPresenter.cs" />
+    <Compile Include="FloorIndicatorPresenter.cs" />
     <Compile Include="Interfaces\Views\IAddNewPassengerView.cs" />
+    <Compile Include="Interfaces\Views\IFloorCell.cs" />
+    <Compile Include="Interfaces\Views\IFloorIndicator.cs" />
     <Compile Include="Interfaces\Views\IView.cs" />
     <Compile Include="SetUpPresenter.cs" />
     <Compile Include="Interfaces\Presenter\IPresenter.cs" />

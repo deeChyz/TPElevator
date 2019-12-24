@@ -20,6 +20,9 @@ namespace Presentation.Interfaces.Views
         void DispellPassenger(int FloorNumber);
         void UpdateTimeStatistics(double Time);
         void UpdateTotalWeightStatistics(int WeightToAdd);
-
+        void DrawPassenger(int currentFloor, string name);
+        void UpdateTime(double Time);
+        void DisableWeightAlert();
+        void EnableWeightAlert();
     }
 }

@@ -9,12 +9,19 @@ namespace Presentation
     {
         private readonly IKernel _container;
         private readonly IBuildingView _view;
+        private readonly IElevatorService _service;
 
-        public BuildingPresenter(IKernel container, IBuildingView view)
+        public BuildingPresenter(IKernel container, IBuildingView view, IElevatorService service)
         {
             _container = container;
+            _service = service;
             _view = view;
             _view.AddNewPassenger += (currentFloor) => AddNewPassenger(currentFloor);
+            _view.StartSimulation += StartSimulation;
+            _view.StopSimulation += StopSimulation;
+            _service.TimeWasUpdated += UpdateTime;
+            _service.DisableWeightAlert += DisableWeightAlert;
+            _service.ElevatorMove += MoveElevator;
         }
 
         public void AddNewPassenger(int currentFloor)
@@ -22,9 +29,39 @@ namespace Presentation
             _container.Get<AddNewPassengerPresenter>().Run(currentFloor);
         }
 
+        public void DrawPassenger(int currentFloor, string name)
+        {
+            _view.DrawPassenger(currentFloor, name);
+        }
+
+        public void StartSimulation()
+        {
+            _service.StartTime();
+        }
+
+        public void StopSimulation()
+        {
+            _service.StopTime();
+        }
+
+        public void UpdateTime(double Time)
+        {
+            _view.UpdateTime(Time);
+        } 
+
         public void Run()
         {
             _view.Show();
+        }
+
+        public void DisableWeightAlert()
+        {
+            _view.DisableWeightAlert();
+        }
+
+        public void MoveElevator(int Destination)
+        {
+            _view.MoveElevator(Destination);
         }
     }
 }

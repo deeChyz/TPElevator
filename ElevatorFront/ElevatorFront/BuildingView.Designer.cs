@@ -64,9 +64,11 @@
             // 
             // floorMainPanel
             // 
+            this.floorMainPanel.AutoSize = true;
+            this.floorMainPanel.FlowDirection = System.Windows.Forms.FlowDirection.BottomUp;
             this.floorMainPanel.Location = new System.Drawing.Point(63, 131);
             this.floorMainPanel.Name = "floorMainPanel";
-            this.floorMainPanel.Size = new System.Drawing.Size(811, 589);
+            this.floorMainPanel.Size = new System.Drawing.Size(811, 76);
             this.floorMainPanel.TabIndex = 2;
             this.floorMainPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.floorMainPanel_Paint);
             // 
@@ -83,9 +85,11 @@
             // 
             // floorButtonIndicatorsBox
             // 
+            this.floorButtonIndicatorsBox.AutoSize = true;
+            this.floorButtonIndicatorsBox.FlowDirection = System.Windows.Forms.FlowDirection.BottomUp;
             this.floorButtonIndicatorsBox.Location = new System.Drawing.Point(880, 131);
             this.floorButtonIndicatorsBox.Name = "floorButtonIndicatorsBox";
-            this.floorButtonIndicatorsBox.Size = new System.Drawing.Size(44, 589);
+            this.floorButtonIndicatorsBox.Size = new System.Drawing.Size(44, 76);
             this.floorButtonIndicatorsBox.TabIndex = 3;
             this.floorButtonIndicatorsBox.Paint += new System.Windows.Forms.PaintEventHandler(this.floorButtonIndicatorsBox_Paint);
             // 
@@ -118,9 +122,10 @@
             this.label1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.label1.Location = new System.Drawing.Point(71, 21);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(85, 17);
+            this.label1.Size = new System.Drawing.Size(55, 17);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Time: 15sec";
+            this.label1.Text = "Time: 0";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // peopleOnlineStats
             // 
@@ -256,10 +261,11 @@
             this.weightIndicator.Text = "ПЕРЕВЕС";
             this.weightIndicator.UseVisualStyleBackColor = false;
             // 
-            // Form1
+            // BuildingView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(1372, 733);
             this.Controls.Add(this.weightIndicator);
             this.Controls.Add(this.label7);
@@ -271,7 +277,7 @@
             this.Controls.Add(this.floorMainPanel);
             this.Controls.Add(this.startButton);
             this.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.Name = "Form1";
+            this.Name = "BuildingView";
             this.Text = "My Elevator";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox1.ResumeLayout(false);

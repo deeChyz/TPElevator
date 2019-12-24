@@ -42,6 +42,7 @@ namespace Model
         public ElevatorService()
         {
             Overweight = false;
+            StatisticMaker = new StatisticMaker();
         }
 
         public void InitializeFloors(int n)
@@ -59,7 +60,7 @@ namespace Model
         public bool AddNewPassenger(string name, int destination, int startFloor)
         {
             Passenger passenger = new Passenger(startFloor, destination, States.Waiting, new Random().Next(0, 100));
-            floors[startFloor].Passengers.Add(passenger);
+            floors[startFloor-1].Passengers.Add(passenger);
             return true;
         }
 
@@ -90,6 +91,7 @@ namespace Model
 
         public void StartTime()
         {
+            InitializeTimer();
             this.Time = 0;
             this.UpdateElevatorMoveTime = 2;
             this.UpdatePassengerMoveTime = 0;
@@ -197,7 +199,8 @@ namespace Model
                     }
                     if (GoOppositeWay == true) {
                         Elevator.CurrentDirection = Directions.Down;
-                        RideDone?.Invoke();
+                        //RideDone?.Invoke();
+                        StatisticMaker.IncrementNumberOfFreeRides();
                         for (int i = Elevator.CurrentFloor; i > 0; i--) {
                             if (Elevator.ControlPanel.ClickedFloors[i - 1] == true || ClickedFloors[i - 1] == true) {
                                 Elevator.CurrentFloor = i;

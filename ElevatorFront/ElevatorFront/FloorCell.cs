@@ -30,7 +30,22 @@ namespace ElevatorFront
 
         private void addUserButton_Click(object sender, EventArgs e)
         {
-            OpenAddNewPassengerView.Invoke();
+            OpenAddNewPassengerView?.Invoke();
+        }
+
+        private void flowLayoutPanelForPassengers_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void ElevatorBox_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -1,20 +1,30 @@
 ﻿using Model.Interfaces;
+using Ninject;
 using Presentation.Interfaces.Views;
+using System;
 using System.Text.RegularExpressions;
 
 namespace Presentation
 {
-    public class AddNewPassengerPresenter
+    public class AddNewPassengerPresenter : IAddNewPassengerView
     {
         private int _currentFloor;
         private readonly IAddNewPassengerView _view;
+        private readonly IKernel _container;
         private readonly IElevatorService _elevatorService;
+        private readonly IBuildingView _buildingView;
 
-        public AddNewPassengerPresenter(IAddNewPassengerView view, IElevatorService elevatorService)
+        //public BuildingPresenter BuildingPresenter { get; set; }
+
+        public event Action<string, string> AddNewPassenger;
+
+        public AddNewPassengerPresenter(IKernel container, IAddNewPassengerView view, IElevatorService elevatorService)
         {
             _view = view;
+            _container = container;
             _elevatorService = elevatorService;
-            _view.AddNewPassenger += (name, destination) => CreateNewPassenger(name, destination);
+            
+            _view.AddNewPassenger += CreateNewPassenger;
         }
 
         private void CreateNewPassenger(string name, string destination)
@@ -45,6 +55,7 @@ namespace Presentation
 
             if (_elevatorService.AddNewPassenger(name, dest, _currentFloor))
             {
+                _container.Get<BuildingPresenter>().DrawPassenger(_currentFloor, name);
                 _view.Close();
                 return;
             }
@@ -56,6 +67,21 @@ namespace Presentation
         {
             _currentFloor = currentFloor;
             _view.Show();
+        }
+
+        public void ShowError(string message)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Show()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Close()
+        {
+            throw new NotImplementedException();
         }
     }
 }

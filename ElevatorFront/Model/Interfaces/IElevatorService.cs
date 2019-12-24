@@ -25,7 +25,7 @@ namespace Model.Interfaces
         bool[] ClickedFloors { get; set; }
         int NumberOfFloors { get; set; }
         bool Overweight { get; set; }
-
+        
         bool AddNewPassenger(string name, int destination, int startFloor);
         void ChangeWeightState();
         Directions CheckDirection();
