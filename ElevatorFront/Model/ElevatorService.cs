@@ -32,7 +32,7 @@ namespace Model
         public event Action<int> PassengerGotOut;
         public event Action<int> PassengerGotIn;
         public event Action<double> TimeWasUpdated;
-        public event Action<int> ButtonPressed;
+        public event Action<int> ButtonPressed; 
         public event Action<int> PassengerDeleted;
         public event Action<List<Passenger>> UpdatePassengerStats;
         public event Action<int> FloorButtonPressed;
@@ -59,7 +59,8 @@ namespace Model
 
         public bool AddNewPassenger(string name, int destination, int startFloor)
         {
-            Passenger passenger = new Passenger(startFloor, destination, States.Waiting, new Random().Next(0, 100));
+            Passenger passenger = new Passenger(startFloor, destination, States.Waiting, new Random().Next(0, 100), name);
+            this.Passengers.Add(passenger);
             floors[startFloor-1].Passengers.Add(passenger);
             return true;
         }
@@ -123,14 +124,14 @@ namespace Model
             Time = Time + 1;
             TimeWasUpdated?.Invoke(this.Time);
             ChangeWeightState();
-            if (this.Time >= this.UpdateElevatorMoveTime + 2) {
+            if (this.Time >= this.UpdateElevatorMoveTime + 4) {
                 if (Overweight == true) {
                     ResetWeightWarning();
                 }
                 this.UpdateElevatorMoveTime = this.Time;
                 MoveElevator();
             }
-            if (Time >= UpdatePassengerMoveTime + 2) {
+            if (Time >= UpdatePassengerMoveTime + 4) {
                 UpdatePassengerMoveTime = Time;
 
                 while (true){
@@ -163,7 +164,38 @@ namespace Model
 
         public void MoveElevator()
         {
-            if (Elevator.ControlPanel.ClickedFloors.Contains(true)) {
+            if (!Elevator.ControlPanel.ClickedFloors.Contains(true) && ClickedFloors.Contains(true))
+            {
+                for (int i = NumberOfFloors; i > 0; i--)
+                {
+                    if (ClickedFloors[i - 1] == true)
+                    {
+                        if (i > Elevator.CurrentFloor)
+                        {
+                            if (CheckDirection() == Directions.Down)
+                            {
+                                RideDone?.Invoke();
+                                FreeRideDone?.Invoke();
+                            }
+                            Elevator.CurrentDirection = Directions.Up;
+                        }
+                        else if (i < Elevator.CurrentFloor)
+                        {
+                            if (CheckDirection() == Directions.Up)
+                            {
+                                RideDone?.Invoke();
+                                FreeRideDone?.Invoke();
+                            }
+                            Elevator.CurrentDirection = Directions.Down;
+                        }
+                        Elevator.CurrentFloor = i;
+                        ClickedFloors[i - 1] = false;
+                        Elevator.ControlPanel.ClickedFloors[i - 1] = false;
+                        ElevatorMove?.Invoke(i);
+                        break;
+                    }
+                }
+            } else if (Elevator.ControlPanel.ClickedFloors.Contains(true)) {
                 if (CheckDirection() == Directions.None) {
                     for (int i = NumberOfFloors; i > Elevator.CurrentFloor; i--) {
                         if (Elevator.ControlPanel.ClickedFloors[i - 1] == true) {
@@ -258,57 +290,35 @@ namespace Model
                     }
                 }
             }
-            else if (!Elevator.ControlPanel.ClickedFloors.Contains(true) && ClickedFloors.Contains(true)) {
-                for (int i = NumberOfFloors; i > 0; i--) {
-                    if (ClickedFloors[i - 1] == true) {
-                        if (i > Elevator.CurrentFloor) {
-                            if (CheckDirection() == Directions.Down) {
-                                RideDone?.Invoke();
-                                FreeRideDone?.Invoke();
-                            }
-                            Elevator.CurrentDirection = Directions.Up;
-                        } else if (i < Elevator.CurrentFloor) {
-                            if (CheckDirection() == Directions.Up) {
-                                RideDone?.Invoke();
-                                FreeRideDone?.Invoke();
-                            }
-                            Elevator.CurrentDirection = Directions.Down;
-                        }
-                        Elevator.CurrentFloor = i;
-                        ClickedFloors[i - 1] = false;
-                        Elevator.ControlPanel.ClickedFloors[i - 1] = false;
-                        ElevatorMove?.Invoke(i);
-                        break;
-                    }
-                }
-            }
         }
 
         public void MovePassenger(Passenger passenger)
         {
-            if (passenger.State == States.Riding && Elevator.CurrentFloor == passenger.DeliveryFloor) {
+            if (passenger.State == States.Waiting && Elevator.CurrentFloor == passenger.InitialFloor) {
+                if (Elevator.TotalWeight + passenger.Weight < Elevator.MaxWeight) {
+                    passenger.State = States.Riding;
+                    Elevator.TotalWeight += passenger.Weight;
+                    PassengerGotIn?.Invoke(Elevator.CurrentFloor, passenger.name);
+                    UpdatePassengerData();
+                    if (Elevator.ControlPanel.ClickedFloors[passenger.DeliveryFloor - 1] == false)
+                    {
+                        Elevator.ControlPanel.ClickedFloors[passenger.DeliveryFloor - 1] = true;
+                        ButtonPressed?.Invoke(passenger.DeliveryFloor);
+                    }
+                }
+                else {
+                    WeightAlert?.Invoke();
+                    Overweight = true;
+                }
+            } else if (passenger.State == States.Waiting && (ClickedFloors[passenger.InitialFloor - 1] == false)) {
+                ClickedFloors[passenger.InitialFloor - 1] = true;
+                FloorButtonPressed?.Invoke(passenger.InitialFloor);
+            } else if (passenger.State == States.Riding && Elevator.CurrentFloor == passenger.DeliveryFloor) {
                 passenger.State = States.Delivered;
                 Elevator.TotalWeight -= passenger.Weight;
                 PassengerGotOut?.Invoke(Elevator.CurrentFloor);
                 TotalDeliveredMassIncreased?.Invoke(passenger.Weight);
                 UpdatePassengerData();
-            } else if (passenger.State == States.Waiting && (ClickedFloors[passenger.InitialFloor - 1] == false)) {
-                ClickedFloors[passenger.InitialFloor - 1] = true;
-                FloorButtonPressed?.Invoke(passenger.InitialFloor);
-            } else if (passenger.State == States.Waiting && Elevator.CurrentFloor == passenger.InitialFloor) {
-                if (Elevator.TotalWeight + passenger.Weight < Elevator.MaxWeight) {
-                    passenger.State = States.Riding;
-                    Elevator.TotalWeight += passenger.Weight;
-                    PassengerGotIn?.Invoke(Elevator.CurrentFloor);
-                    UpdatePassengerData();
-                    if (Elevator.ControlPanel.ClickedFloors[passenger.DeliveryFloor - 1] == false) {
-                        Elevator.ControlPanel.ClickedFloors[passenger.DeliveryFloor - 1] = true;
-                        ButtonPressed?.Invoke(passenger.DeliveryFloor);
-                    }
-                } else {
-                    WeightAlert?.Invoke();
-                    Overweight = true;
-                }
             }
         }
     }

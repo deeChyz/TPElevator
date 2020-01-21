@@ -22,6 +22,10 @@ namespace Presentation
             _service.TimeWasUpdated += UpdateTime;
             _service.DisableWeightAlert += DisableWeightAlert;
             _service.ElevatorMove += MoveElevator;
+            _service.PassengerDeleted += DeletePassenger;
+            _service.FloorButtonPressed += PressFloorButton;
+            _service.PassengerGotIn += PassengerGotIn;
+            _service.PassengerGotOut += PassengeGotOut;
         }
 
         public void AddNewPassenger(int currentFloor)
@@ -62,6 +66,26 @@ namespace Presentation
         public void MoveElevator(int Destination)
         {
             _view.MoveElevator(Destination);
+        }
+
+        public void DeletePassenger(int FloorNumber)
+        {
+            _view.DeletePessanger(FloorNumber);
+        }
+
+        public void PressFloorButton(int FloorNumber)
+        {
+            _view.PressFloorButtonCheckbox(FloorNumber);
+        }
+
+        public void PassengerGotIn(int FloorNumber, string Name)
+        {
+            _view.TransferPassengerToElevator(FloorNumber, Name);
+        }
+
+        public void PassengeGotOut(int FloorNumber)
+        {
+            _view.TransferPassengerFromElevator(FloorNumber);
         }
     }
 }

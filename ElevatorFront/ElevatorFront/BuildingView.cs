@@ -8,6 +8,9 @@ namespace ElevatorFront
     public partial class BuildingView : Form, IBuildingView
     {
         private FloorCell[] FloorCells;
+
+        public int CurrentNumberOfPassengers { get; set; }
+
         public event Action<int> AddNewPassenger;
         public event Action StartSimulation;
         public event Action StopSimulation;
@@ -28,10 +31,11 @@ namespace ElevatorFront
                 floorMainPanel.Controls.Add(FloorCells[i]);
                 floorButtonIndicatorsBox.Controls.Add(new FloorIndicator());
                 var j = i;
-                FloorCells[i].OpenAddNewPassengerView += () => InvokeAddNewPassengerEvent(j+1);
+                FloorCells[i].OpenAddNewPassengerView += () => InvokeAddNewPassengerEvent(j + 1);
             }
             FloorCells[0].ElevatorBox.Visible = true;
             FloorCells[0].ElevatorBox.Text = "0";
+            CurrentNumberOfPassengers = 0;
             peopleOnlineStats.Controls.Add(new UserStatMessage("Человек ждет лифта на 1 этаже"));
             peopleOnlineStats.Controls.Add(new UserStatMessage("Человек едет на 3 этаж"));
             peopleOnlineStats.Controls.Add(new UserStatMessage("Человек едет на 3 этаж"));
@@ -46,7 +50,7 @@ namespace ElevatorFront
             Button button = new Button();
             button.BackColor = System.Drawing.Color.Pink;
             button.Location = new System.Drawing.Point(3, 3);
-            button.Name = new Random().Next(0, 1000) *41/80 + "";
+            button.Name = new Random().Next(0, 1000) * 41 / 80 + "";
             button.Size = new System.Drawing.Size(25, 25);
             button.Text = name.Substring(0, 1);
             button.TabIndex = 4;
@@ -58,7 +62,7 @@ namespace ElevatorFront
         public void UpdateTime(double Time)
         {
             label1.Text = $"Time: {Time.ToString()}";
-        } 
+        }
 
         public void DisableWeightAlert()
         {
@@ -93,7 +97,7 @@ namespace ElevatorFront
         private void floorButtonIndicatorsBox_Paint(object sender, PaintEventArgs e)
         {
 
-        } 
+        }
 
         private void label4_Click(object sender, EventArgs e)
         {
@@ -107,7 +111,7 @@ namespace ElevatorFront
 
         public void PressFloorButtonCheckbox(int FloorNumber)
         {
-            throw new NotImplementedException();
+            FloorCells[FloorNumber - 1].elevetorCellCheckbox.Checked = true;
         }
 
         public void PressElevatorButtonCheckbox(int FloorNumber)
@@ -117,14 +121,14 @@ namespace ElevatorFront
 
         public void MoveElevator(int Destination)
         {
-            FloorCells[0].ElevatorBox.Visible = true;
-            FloorCells[0].ElevatorBox.Text = "0";
-            for (var i = 0; i < FloorCells.Length; i++) {
-                if (i == Destination - 1) {
-                    FloorCells[Destination - 1].ElevatorBox.Visible = true;
-                    return;
+            FloorCells[Destination - 1].ElevatorBox.Visible = true;
+            FloorCells[Destination - 1].elevetorCellCheckbox.Checked = false;
+            for (var i = 0; i < FloorCells.Length; i++)
+            {
+                if (i != (Destination - 1))
+                {
+                    FloorCells[i].ElevatorBox.Visible = false;
                 }
-                FloorCells[i].ElevatorBox.Visible = false;
             }
         }
 
@@ -150,12 +154,24 @@ namespace ElevatorFront
 
         public void TransferPassengerToElevator(int FloorNumber)
         {
-            throw new NotImplementedException();
+            CurrentNumberOfPassengers += FloorCells[FloorNumber - 1].flowLayoutPanelForPassengers.Controls.Count;
+            FloorCells[FloorNumber - 1].ElevatorBox.Text = CurrentNumberOfPassengers.ToString();
+            FloorCells[FloorNumber - 1].flowLayoutPanelForPassengers.Controls.Clear();
         }
 
         public void TransferPassengerFromElevator(int FloorNumber)
         {
-            throw new NotImplementedException();
+            Button button = new Button();
+            button.BackColor = System.Drawing.Color.Pink;
+            button.Location = new System.Drawing.Point(3, 3);
+            button.Name = "Out";
+            button.Size = new System.Drawing.Size(25, 25);
+            button.TabIndex = 4;
+            button.UseVisualStyleBackColor = false;
+            button.Visible = true;
+            FloorCells[FloorNumber - 1].MovedOutPassengers.Controls.Add(button);
+            DecreaseCurrentNumberOfPassenger();
+            FloorCells[FloorNumber - 1].ElevatorBox.Text = CurrentNumberOfPassengers.ToString();
         }
 
         public void DispellPassenger(int FloorNumber)
@@ -176,6 +192,21 @@ namespace ElevatorFront
         private void label1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        public int IncreaseCurrentNumberOfPassengers()
+        {
+            return ++CurrentNumberOfPassengers;
+        }
+
+        public int DecreaseCurrentNumberOfPassenger()
+        {
+            return --CurrentNumberOfPassengers;
+        }
+
+        public void DeletePessanger(int FloorNumber)
+        {
+            FloorCells[FloorNumber - 1].MovedOutPassengers.Controls.Clear();
         }
     }
 }

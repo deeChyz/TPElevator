@@ -47,5 +47,10 @@ namespace ElevatorFront
         {
 
         }
+
+        private void MovedOutPassengers_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

@@ -4,6 +4,7 @@ namespace Presentation.Interfaces.Views
 {
     public interface IBuildingView : IView
     {
+        int CurrentNumberOfPassengers { get; set; }
         event Action<int> AddNewPassenger;
         event Action StartSimulation;
         event Action StopSimulation;
@@ -24,5 +25,8 @@ namespace Presentation.Interfaces.Views
         void UpdateTime(double Time);
         void DisableWeightAlert();
         void EnableWeightAlert();
+        void DeletePessanger(int FloorNumber);
+        int IncreaseCurrentNumberOfPassengers();
+        int DecreaseCurrentNumberOfPassenger();
     }
 }
